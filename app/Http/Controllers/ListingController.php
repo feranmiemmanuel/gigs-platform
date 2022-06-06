@@ -10,10 +10,10 @@ class ListingController extends Controller
     public function index()
     {
         $listings = Listing::all();
-        return view('listings', ['listings' => $listings]);
+        return view('listings.index', ['listings' => $listings]);
     }
     public function show(Listing $listing)
     {
-        return view('listing', ['listing' => $listing]);
+        return view('listings.show', ['listing' => $listing]);
     }
 }
