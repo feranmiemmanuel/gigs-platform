@@ -31,6 +31,16 @@ class ListingController extends Controller
             'location' => 'required',
             'description' => 'required',
         ]);
+        if ($request->hasFile('logo')) {
+            // This commented code is useful when you want to upload sensitive data
+            // It requires you to run php artisan strorage:link
+            //$formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        $image = $request->file('logo');
+        $fullimage = time().'.'.$image->getClientOriginalExtension();
+        $dest = public_path('/images');
+        $image->move($dest,$fullimage);
+        $formFields['logo'] = $fullimage;
+        }
         Listing::create($formFields);
         return redirect('/')->with('message', 'Job Listing Created Successfully');
     }
